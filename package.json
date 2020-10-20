@@ -1,0 +1,35 @@
+{
+  "appID": "com.joelcalado.hyperdeckctl",
+  "name": "cgtimer",
+  "productName": "HyperDeck Controls",
+  "version": "0.1.0",
+  "description": "Blackmagic hyperdeck UI",
+  "scripts": {
+    "dev": "electron-webpack dev",
+    "compile": "electron-webpack",
+    "dist": "yarn compile",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Joel Calado",
+    "email": "joelcalado@gmail.com"
+  },
+  "license": "GPL-3.0-only",
+  "publish": {
+    "provider": "github",
+    "token": "${{ secrets.GH_TOKEN }}"
+  },
+  "dependencies": {
+    "electron-updater": "^4.3.5",
+    "hyperdeck-js-lib": "^1.6.0",
+    "source-map-support": "^0.5.16"
+  },
+  "devDependencies": {
+    "electron": "10.1.1",
+    "electron-builder": "^22.8.1",
+    "electron-webpack": "^2.8.2",
+    "webpack": "~4.42.1",
+    "yarn": "^1.22.5"
+  }
+}
