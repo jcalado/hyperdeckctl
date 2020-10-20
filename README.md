@@ -10,7 +10,8 @@ hyperdeckctl allows you to trigger common functions of you Blackmagic Design Hyp
 - Go to previous clip
 
 # Screenshots
-Soon
+<a href="https://github.com/jcalado/hyperdeckctl/raw/master/screenshots/screenshot01.png"><img src="https://github.com/jcalado/hyperdeckctl/raw/master/screenshots/screenshot01.png" width="400px"></a>
+
 
 # Configuration
 Make sure your decks are set to allow remote control.
