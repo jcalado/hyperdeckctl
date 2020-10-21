@@ -1,4 +1,10 @@
 var hyperdecklib = require("hyperdeck-js-lib");
+const Store = require('electron-store');
+const store = new Store();
+
+var ips = store.get('ips');
+var names = store.get('names');
+
 import "../styles/app.css";
 
 let template = `
@@ -20,67 +26,54 @@ let template = `
     <span id="all_record"><i class="fas fa-circle"></i></i></span>
   </div>
 </div>
-<div class="monitor">
-  <h1>HyperDeck 1<span class='ip'>192.168.1.1</span></h1>
-  <div class="controls">
-    <span class="previous" data-deck="0"><i class="fas fa-step-backward"></i></span>
-    <span class="rw" data-deck="0"><i class="fas fa-backward"></i></span>
-    <span class="play" data-deck="0"><i class="fas fa-play"></i></span>
-    <span class="stop" data-deck="0"><i class="fas fa-stop"></i></span>
-    <span class="ff" data-deck="0"><i class="fas fa-forward"></i></span>
-    <span class="next" data-deck="0"><i class="fas fa-step-forward"></i></span>
-    <span class="record" data-deck="0"><i class="fas fa-circle"></i></i></span>
-  </div>
-</div>
-<div class="monitor">
-  <h1>HyperDeck 2<span class='ip'>192.168.1.2</span></h1>
-  <div class="controls">
-    <span class="previous" data-deck="1"><i class="fas fa-step-backward"></i></span>
-    <span class="rw" data-deck="1"><i class="fas fa-backward"></i></span>
-    <span class="play" data-deck="1"><i class="fas fa-play"></i></span>
-    <span class="stop" data-deck="1"><i class="fas fa-stop"></i></span>
-    <span class="ff" data-deck="1"><i class="fas fa-forward"></i></span>
-    <span class="next" data-deck="1"><i class="fas fa-step-forward"></i></span>
-    <span class="record" data-deck="1"><i class="fas fa-circle"></i></i></span>
-  </div>
-</div>
-<div class="monitor">
-  <h1>HyperDeck 3<span class='ip'>192.168.1.3</span></h1>
-  <div class="controls">
-    <span class="previous" data-deck="2"><i class="fas fa-step-backward"></i></span>
-    <span class="rw" data-deck="2"><i class="fas fa-backward"></i></span>
-    <span class="play" data-deck="2"><i class="fas fa-play"></i></span>
-    <span class="stop" data-deck="2"><i class="fas fa-stop"></i></span>
-    <span class="ff" data-deck="2"><i class="fas fa-forward"></i></span>
-    <span class="next" data-deck="2"><i class="fas fa-step-forward"></i></span>
-    <span class="record" data-deck="2"><i class="fas fa-circle"></i></i></span>
-  </div>
-</div>
-<div class="monitor">
-  <h1>Master<span class='ip'>192.168.1.3</span></h1>
-  <div class="controls">
-    <span class="previous" data-deck="2"><i class="fas fa-step-backward"></i></span>
-    <span class="rw" data-deck="2"><i class="fas fa-backward"></i></span>
-    <span class="play" data-deck="2"><i class="fas fa-play"></i></span>
-    <span class="stop" data-deck="2"><i class="fas fa-stop"></i></span>
-    <span class="ff" data-deck="2"><i class="fas fa-forward"></i></span>
-    <span class="next" data-deck="2"><i class="fas fa-step-forward"></i></span>
-    <span class="record" data-deck="2"><i class="fas fa-circle"></i></i></span>
-  </div>
-</div>
 </body>
 `;
+
 document.write(template);
 
 var decks = new Array();
-var ips = ["192.168.100.101","192.168.100.102","192.168.100.103","192.168.100.104"]
+var ips = store.get('ips');
+//var ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3", "192.168.1.4"];
 
-ips.forEach(function(item){
-  decks.push(new hyperdecklib.Hyperdeck(item));
-});
+
+
+let monitorTemplate = (name, ip, deckid) => `
+<div class="monitor">
+  <h1>${name}<span class='ip'>${ip}</span></h1>
+  <div class="controls">
+    <span class="previous" data-deck="${deckid}"><i class="fas fa-step-backward"></i></span>
+    <span class="rw" data-deck="${deckid}"><i class="fas fa-backward"></i></span>
+    <span class="play" data-deck="${deckid}"><i class="fas fa-play"></i></span>
+    <span class="stop" data-deck="${deckid}"><i class="fas fa-stop"></i></span>
+    <span class="ff" data-deck="${deckid}"><i class="fas fa-forward"></i></span>
+    <span class="next" data-deck="${deckid}"><i class="fas fa-step-forward"></i></span>
+    <span class="record" data-deck="${deckid}"><i class="fas fa-circle"></i></i></span>
+  </div>
+</div>`
+
+function htmlToElement(html) {
+  var template = document.createElement('template');
+  html = html.trim(); // Never return a text node of whitespace as the result
+  template.innerHTML = html;
+  return template.content.firstChild;
+}
+
+function loadDeck(ip) {
+  var monitors = document.getElementsByClassName('monitor');
+  var lastMonitor = monitors[monitors.length-1];
+
+  var index = ips.indexOf(ip);
+
+  lastMonitor.insertAdjacentElement("afterend", htmlToElement(monitorTemplate(names[index], ip, index)));
+}
 
 
 document.addEventListener("DOMContentLoaded", function() {
+
+  ips.forEach(function(item){
+    decks.push(new hyperdecklib.Hyperdeck(item));
+    loadDeck(item);
+  });
 
   decks[0].makeRequest("slot info: slot id: 1").then(function(response) {
 	  console.log("Got response with code "+response.code+".");

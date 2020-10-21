@@ -117,3 +117,53 @@ h2#loopWarning {
     opacity: 0;
   }
 }
+
+div#decks {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+div#newDeviceFields {
+  margin: 20px;
+  color: white;
+}
+
+#newDeviceFields input {
+  background: black;
+  color:white;
+  border:none;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+span.options {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color:white;
+  align-items: flex-end;
+  font-size: 0.8em;
+}
+
+span.options span {
+  margin: 10px;
+}
+
+button {
+  background: #3a3a3a;
+  border: none;
+  padding: 5px 10px;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #475c3e;
+}
+
+button:active {
+  background: #52803f;
+}

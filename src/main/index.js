@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 import * as path from 'path'
 import { format as formatUrl } from 'url'
 import { autoUpdater } from "electron-updater"
@@ -11,9 +11,25 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 let mainWindow
 
 function createMainWindow() {
-  const window = new BrowserWindow({webPreferences: {nodeIntegration: true}})
+  const window = new BrowserWindow({webPreferences: {nodeIntegration: true, enableRemoteModule: true}})
 
-  window.removeMenu();
+  const template = [
+    {
+      role: 'fileMenu'
+    },
+    {
+       label: 'Edit',
+       submenu: [
+          {
+             label: 'Preferences',
+             click(){createSettingsWindow()} 
+          }
+       ]
+    }
+ ]
+ 
+ const menu = Menu.buildFromTemplate(template)
+ Menu.setApplicationMenu(menu)
 
   if (isDevelopment) {
     window.webContents.openDevTools()
@@ -44,6 +60,32 @@ function createMainWindow() {
       window.focus()
     })
   })
+
+  return window
+}
+
+function createSettingsWindow() {
+  const window = new BrowserWindow({title: "Preferences", webPreferences: {nodeIntegration: true, enableRemoteModule: true}})
+
+  window.removeMenu();
+
+  if (isDevelopment) {
+    window.webContents.openDevTools()
+  }
+
+
+    window.loadURL(formatUrl({
+      pathname: path.join(__dirname, 'settings.html'),
+      protocol: 'file',
+      slashes: true
+    }))
+  
+
+  window.on('closed', () => {
+    mainWindow.reload();
+  })
+
+
 
   return window
 }
