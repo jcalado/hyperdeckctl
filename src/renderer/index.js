@@ -33,9 +33,6 @@ document.write(template);
 
 var decks = new Array();
 var ips = store.get('ips');
-//var ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3", "192.168.1.4"];
-
-
 
 let monitorTemplate = (name, ip, deckid) => `
 <div class="monitor">
@@ -130,6 +127,14 @@ document.addEventListener("DOMContentLoaded", function() {
     previouses[i].addEventListener("click", function(event){
       var deck = this.dataset.deck;
       decks[deck].nextClip();
+    });
+  }
+
+  var records = document.getElementsByClassName('record');
+  for (var i = 0; i < plays.length; ++i) {
+    records[i].addEventListener("click", function(event){
+      var deck = this.dataset.deck;
+      decks[deck].record();
     });
   }
 
