@@ -1,6 +1,6 @@
 {
   "appID": "com.joelcalado.hyperdeckctl",
-  "name": "cgtimer",
+  "name": "hyperdeckctl",
   "productName": "HyperDeck Controls",
   "version": "0.2.1",
   "description": "Blackmagic hyperdeck UI",
