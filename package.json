@@ -7,8 +7,11 @@
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
-    "dist": "yarn compile",
+    "dist": "yarn compile && electron-builder",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
+  },
+  "win": {
+    "target": "portable"
   },
   "keywords": [],
   "author": {
@@ -21,6 +24,7 @@
     "token": "${{ secrets.GH_TOKEN }}"
   },
   "dependencies": {
+    "electron-context-menu": "^2.3.0",
     "electron-store": "^6.0.1",
     "electron-updater": "^4.3.5",
     "hyperdeck-js-lib": "^1.6.0",
