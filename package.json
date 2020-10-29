@@ -2,7 +2,7 @@
   "appID": "com.joelcalado.hyperdeckctl",
   "name": "hyperdeckctl",
   "productName": "HyperDeckctl",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Blackmagic hyperdeck UI",
   "scripts": {
     "dev": "electron-webpack dev",
