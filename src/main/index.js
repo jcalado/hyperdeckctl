@@ -1,9 +1,11 @@
-'use strict'
+const {app, BrowserWindow, Menu, ipcMain } = require('electron');
+const contextMenu = require('electron-context-menu');
+const autoUpdater = require('electron-updater');
+const { shell } = require('electron');
 
-import { app, BrowserWindow, Menu } from 'electron'
+
 import * as path from 'path'
 import { format as formatUrl } from 'url'
-import { autoUpdater } from "electron-updater"
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
@@ -11,25 +13,17 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 let mainWindow
 
 function createMainWindow() {
-  const window = new BrowserWindow({webPreferences: {nodeIntegration: true, enableRemoteModule: true}})
-
-  const template = [
-    {
-      role: 'fileMenu'
-    },
-    {
-       label: 'Edit',
-       submenu: [
-          {
-             label: 'Preferences',
-             click(){createSettingsWindow()} 
-          }
-       ]
+  const window = new BrowserWindow({
+    title: 'HyperDeckctl',
+    width: 1300,
+    height: 700,
+    webPreferences: {
+      nodeIntegration: true,
+      enableRemoteModule: true
     }
- ]
- 
- const menu = Menu.buildFromTemplate(template)
- Menu.setApplicationMenu(menu)
+  })
+
+  window.removeMenu();
 
   if (isDevelopment) {
     window.webContents.openDevTools()
@@ -61,31 +55,10 @@ function createMainWindow() {
     })
   })
 
-  return window
-}
-
-function createSettingsWindow() {
-  const window = new BrowserWindow({title: "Preferences", webPreferences: {nodeIntegration: true, enableRemoteModule: true}})
-
-  window.removeMenu();
-
-  if (isDevelopment) {
-    window.webContents.openDevTools()
-  }
-
-
-    window.loadURL(formatUrl({
-      pathname: path.join(__dirname, 'settings.html'),
-      protocol: 'file',
-      slashes: true
-    }))
-  
-
-  window.on('closed', () => {
-    mainWindow.reload();
+  window.webContents.on('open-ftp', () => {
+    console.log("OPEN THE FTP");
+    shell.openExternal('https://github.com')
   })
-
-
 
   return window
 }
@@ -108,4 +81,22 @@ app.on('activate', () => {
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
   mainWindow = createMainWindow()
+})
+
+contextMenu({
+  prepend: (defaultActions, params, browserWindow) => [
+    {
+      label: 'Manage decks',
+      // Only show it when right-clicking text
+      visible: true,
+      click: () => {
+        mainWindow.webContents.send('manage-decks');
+      }
+    }
+  ]
+});
+
+ipcMain.on('open-ftp', (event, arg) => {
+  console.log(arg) // prints "ping"
+  shell.openExternal(arg);
 })
