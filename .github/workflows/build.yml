@@ -25,7 +25,7 @@ jobs:
       - name: Dist
         run: npm run dist
         env:
-          gh_token: ${{ secrets.gh_token }}
+          GH_TOKEN: ${{ secrets.gh_token }}
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1.6.0
