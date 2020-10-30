@@ -1,5 +1,5 @@
 {
-  "main": "src/main/index.js",
+  "main": "src/main/main.js",
   "name": "hyperdeckctl",
   "version": "0.3.0",
   "description": "Blackmagic hyperdeck UI",
