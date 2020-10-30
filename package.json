@@ -24,11 +24,7 @@
     "appId": "com.joelcalado.hyperdeckctl",
     "productName": "hyperdeckctl",
     "win": {
-      "target": "portable",
-      "publish": {
-        "provider": "github",
-        "token": "${{ secrets.GH_TOKEN }}"
-      }
+      "target": "portable"
     },
     "linux": {
       "target": "AppImage",
