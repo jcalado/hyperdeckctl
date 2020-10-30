@@ -19,6 +19,9 @@ jobs:
         with:
           node-version: 10
           
+      - name: Install dependencies
+        run: npm install
+          
       - name: Dist
         run: npm run dist  
 
