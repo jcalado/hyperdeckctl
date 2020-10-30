@@ -1,4 +1,8 @@
 {
+  "author": {
+    "name": "Joel Calado",
+    "email": "joelcalado@gmail.com"
+  },
   "appID": "com.joelcalado.hyperdeckctl",
   "name": "hyperdeckctl",
   "productName": "HyperDeckctl",
@@ -13,11 +17,11 @@
   "win": {
     "target": "portable"
   },
-  "keywords": [],
-  "author": {
-    "name": "Joel Calado",
-    "email": "joelcalado@gmail.com"
+  "linux": {
+    "category": "Utility",
+    "target": "AppImage"
   },
+  "keywords": ["Blackmagic", "Hyperdeck"],
   "license": "GPL-3.0-only",
   "publish": {
     "provider": "github",
