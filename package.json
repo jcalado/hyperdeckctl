@@ -22,11 +22,6 @@
   },
   "build": {
     "appId": "com.joelcalado.hyperdeckctl",
-    "files": [
-      "build/**/*",
-      "node_modules/**/*",
-      "package.json"
-    ],
     "productName": "hyperdeckctl",
     "win": {
       "target": "portable",
