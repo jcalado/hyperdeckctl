@@ -1,31 +1,39 @@
 {
+  "main": "./src/index.js",
+  "name": "hyperdeckctl",
+  "version": "0.3.0",
+  "description": "Blackmagic hyperdeck UI",
+  "homepage": "https://github.com/jcalado/hyperdeckctl",
   "author": {
     "name": "Joel Calado",
     "email": "joelcalado@gmail.com"
   },
-  "appID": "com.joelcalado.hyperdeckctl",
-  "name": "hyperdeckctl",
-  "productName": "HyperDeckctl",
-  "version": "0.3.0",
-  "description": "Blackmagic hyperdeck UI",
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/jcalado/hyperdeckctl.git"
+  },
   "scripts": {
     "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "dist": "yarn compile && electron-builder",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
   },
-  "win": {
-    "target": "portable"
-  },
-  "linux": {
-    "category": "Utility",
-    "target": "AppImage"
-  },
-  "keywords": ["Blackmagic", "Hyperdeck"],
-  "license": "GPL-3.0-only",
-  "publish": {
-    "provider": "github",
-    "token": "${{ secrets.GH_TOKEN }}"
+  "build": {
+    "appID": "com.joelcalado.hyperdeckctl",
+    "productName": "hyperdeckctl",
+    "win": {
+      "target": "portable"
+    },
+    "linux": {
+      "category": "Utility",
+      "target": "AppImage"
+    },
+    "keywords": ["Blackmagic", "Hyperdeck"],
+    "publish": {
+      "provider": "github",
+      "token": "${{ secrets.GH_TOKEN }}"
+    }
   },
   "dependencies": {
     "electron-context-menu": "^2.3.0",
