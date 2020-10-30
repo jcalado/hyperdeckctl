@@ -1,5 +1,5 @@
 {
-  "main": "./src/main/index.js",
+  "main": "src/main/index.js",
   "name": "hyperdeckctl",
   "version": "0.3.0",
   "description": "Blackmagic hyperdeck UI",
@@ -23,8 +23,9 @@
   "build": {
     "appId": "com.joelcalado.hyperdeckctl",
     "files": [
-      "./build/**/*",
-      "./src/main/index.js"
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json"
     ],
     "productName": "hyperdeckctl",
     "win": {
