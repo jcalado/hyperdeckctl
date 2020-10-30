@@ -6,6 +6,8 @@ hyperdeckctl allows you to trigger common functions of you Blackmagic Design Hyp
 - Play
 - Stop
 - Record
+- Fast forward 10s
+- Rewind 10s
 - Skip to next clip
 - Go to previous clip
 
