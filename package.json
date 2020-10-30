@@ -16,9 +16,9 @@
   "keywords": ["Blackmagic", "Hyperdeck"],
   "scripts": {
     "dev": "electron-webpack dev",
-    "compile": "electron-webpack",
-    "dist": "yarn compile && electron-builder",
-    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
+    "postinstall": "electron-builder install-app-deps",
+		"build": "electron-builder --mac --windows --linux",
+		"release": "electron-builder --mac --windows --linux --publish always"
   },
   "build": {
     "appId": "com.joelcalado.hyperdeckctl",
