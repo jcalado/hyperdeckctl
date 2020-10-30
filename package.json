@@ -16,9 +16,9 @@
   "keywords": ["Blackmagic", "Hyperdeck"],
   "scripts": {
     "dev": "electron-webpack dev",
-    "postinstall": "electron-builder install-app-deps",
-		"build": "electron-builder --mac --windows --linux",
-		"release": "electron-builder --mac --windows --linux --publish always"
+    "compile": "electron-webpack",
+    "dist": "yarn compile && electron-builder",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
   },
   "build": {
     "appId": "com.joelcalado.hyperdeckctl",
@@ -29,15 +29,19 @@
     ],
     "productName": "hyperdeckctl",
     "win": {
-      "target": "portable"
+      "target": "portable",
+      "publish": {
+        "provider": "github",
+        "token": "${{ secrets.GH_TOKEN }}"
+      }
     },
     "linux": {
-      "category": "Utility",
-      "target": "AppImage"
+      "target": "AppImage",
+      "category": "Utility"
     },
-    "publish": {
-      "provider": "github",
-      "token": "${{ secrets.GH_TOKEN }}"
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.utilities"
     }
   },
   "dependencies": {
