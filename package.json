@@ -21,7 +21,7 @@
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
   },
   "build": {
-    "appID": "com.joelcalado.hyperdeckctl",
+    "appId": "com.joelcalado.hyperdeckctl",
     "productName": "hyperdeckctl",
     "win": {
       "target": "portable"
